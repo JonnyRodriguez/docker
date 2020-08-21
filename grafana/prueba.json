@@ -1,0 +1,62 @@
+[
+  {
+    "key": "skynet000",
+    "latitude": 10.4880,
+    "longitude": -66.8792,
+    "name": "Skynet000"
+  },
+  {
+    "key": "skynet001",
+    "latitude": 25.7743,
+    "longitude": -80.1937,
+    "name": "skynet001"
+  },
+  {
+    "key": "skynet002",
+    "latitude": 25.7743,
+    "longitude": -81.1937,
+    "name": "Skynet002"
+  },
+  {
+    "key": "skynet003",
+    "latitude": 25.7743,
+    "longitude": -82.1937,
+    "name": "Skynet003"
+  },
+  {
+    "key": "skynet004",
+    "latitude": 25.7743,
+    "longitude": -83.1937,
+    "name": "Skynet004"
+  },
+  {
+    "key": "skynet005",
+    "latitude": 25.7743,
+    "longitude": -84.1937,
+    "name": "Skynet005"
+  },
+  {
+    "key": "ShinyVPS",
+    "latitude": 54.6892,
+    "longitude": 25.2798,
+    "name": "ShinyVPS"
+  },
+  {
+    "key": "EcosystemVPS",
+    "latitude": 54.6892,
+    "longitude": 26.2798,
+    "name": "EcosystemVPS"
+  },
+  {
+    "key": "IncubationVPS01",
+    "latitude": 40.8313,
+    "longitude": -73.6835,
+    "name": "IncubationVPS01"
+  },
+  {
+    "key": "LiveVPS01",
+    "latitude": 40.5325,
+    "longitude": -74.3375,
+    "name": "LiveVPS01"
+  }
+]
