@@ -1,3 +1,2 @@
 FROM openresty/openresty:alpine
-
-RUN apk add --no-cache jq, curl, rsync
+RUN apk add --no-cache jq curl rsync
