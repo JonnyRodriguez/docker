@@ -1,0 +1,12 @@
+#!/bin/bash
+SIDS=$(docker service ps $1 -f desired-state=running -q)
+shift
+for SID in $SIDS; do
+  NodeID=$(docker inspect $SID --format '{{.NodeID}}')
+  IP=$(docker node inspect $NodeID --format '{{ .Status.Addr }}')
+  CID=$(docker inspect $SID --format {{.Status.ContainerStatus.ContainerID}})
+  echo "NodeID: $NodeID"
+  echo "IP: $IP"
+  echo "ContainerID: $CID"
+  docker -H $IP exec -it $CID $@
+done
