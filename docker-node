@@ -1,0 +1,9 @@
+#!/bin/bash
+if [ $# -eq 0 ]; then
+    docker node ls --format '{{ .Hostname }}'
+    exit 0
+fi
+
+IP=$(docker node inspect $1 --format '{{ .Status.Addr }}')
+shift
+docker -H $IP $@
