@@ -29,3 +29,4 @@ jobs:
         push: true
         tags: jojoroto/code-server:codercom_php8
         file: code-server/codercom_php8
+        cache-from: jojoroto/code-server:codercom_php8
