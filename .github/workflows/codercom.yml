@@ -10,8 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     
-    - run: User="{{ secrets.DOCKERHUB_USERNAME }}"
-    - run: echo "$User"
+    - id: files
+      uses: jitterbit/get-changed-files@v1
+    - run: |
+        for changed_file in ${{ steps.files.outputs.all }}; do
+          echo "Do something with this ${changed_file}."
+        done
       
     - name: Login to DockerHub
       uses: docker/login-action@v1 
