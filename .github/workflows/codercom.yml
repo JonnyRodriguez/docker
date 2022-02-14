@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: codercom_php8 docker Image CI
 
 on:
   push:
