@@ -10,8 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     
-    - name: check
-      run: ls
+    - run: User="{{ secrets.DOCKERHUB_USERNAME }}"
+    - run: echo "$User"
       
     - name: Login to DockerHub
       uses: docker/login-action@v1 
