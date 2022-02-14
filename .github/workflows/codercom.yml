@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: envcheck
-      run: env
+      run: echo ${{ secrets.DOCKERHUB_USERNAME }}; echo ${{ secrets }}
       
     - name: Login to DockerHub
       uses: docker/login-action@v1 
