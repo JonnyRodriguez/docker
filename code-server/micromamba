@@ -1,7 +1,7 @@
 FROM codercom/code-server:latest
 shell ["/bin/bash", "-c"]
-RUN export DEBIAN_FRONTEND=noninteractive && export APT_LISTCHANGES_FRONTEND=none &&DEBIAN_FRONTEND=none \
-sudo apt update && sudo apt upgrade -y && sudo apt install -y wget bzip2 
+RUN export DEBIAN_FRONTEND=noninteractive && export APT_LISTCHANGES_FRONTEND=none \
+&& sudo apt update && sudo apt upgrade -y && sudo apt install -y wget bzip2 
 RUN wget https://micromamba.snakepit.net/api/micromamba/linux-64/latest -qO- | tar -xvj bin/micromamba
 RUN ./bin/micromamba shell init -s bash -p ~/micromamba && source ~/.bashrc
 RUN code-server --install-extension ms-python.python
