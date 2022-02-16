@@ -1,0 +1,13 @@
+name: build_micromamba
+on:
+  workflow_dispatch:
+
+jobs:
+  say:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out repository code
+      uses: actions/checkout@v2
+    - uses: ./.github/actions/build_and_push
+      with:
+        pkg: code-server/micromamba
