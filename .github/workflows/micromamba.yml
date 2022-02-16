@@ -16,7 +16,7 @@ jobs:
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
         
     - run: |
-      filename="code-server/micromamba"
-      pkgname="jojoroto/${filename/\//:}"
-      docker build -f $filename -t $pkgname
-      docker push $pkgname
+        filename="code-server/micromamba"
+        pkgname="jojoroto/${filename/\//:}"
+        docker build -f $filename -t $pkgname
+        docker push $pkgname
