@@ -1,0 +1,6 @@
+FROM codercom/code-server:latest
+SHELL ["/bin/bash", "-c"]
+RUN export DEBIAN_FRONTEND=noninteractive && export APT_LISTCHANGES_FRONTEND=none \
+sudo apt update && sudo apt upgrade -y
+RUN sudo apt update && sudo apt install -y unzip jq python3-pip
+RUN code-server --install-extension ms-python.python
