@@ -1,7 +1,7 @@
 FROM codercom/code-server:latest
-RUN sudo apt update && sudo apt upgrade -y \
-&& sudo apt -y wget \
-&& wget -qO- https://micromamba.snakepit.net/api/micromamba/linux-64/latest | tar -xvj bin/micromamba \
-&& ./bin/micromamba shell init -s bash -p ~/micromamba \
-&& source ~/.bashrc
-#RUN code-server --install-extension bmewburn.vscode-intelephense-client
+shell ["/bin/bash", "-c"]
+RUN export DEBIAN_FRONTEND=noninteractive && export APT_LISTCHANGES_FRONTEND=none &&DEBIAN_FRONTEND=none \
+sudo apt update && sudo apt upgrade -y && sudo apt install -y wget bzip2 
+RUN wget https://micromamba.snakepit.net/api/micromamba/linux-64/latest -qO- | tar -xvj bin/micromamba
+RUN ./bin/micromamba shell init -s bash -p ~/micromamba && source ~/.bashrc
+RUN code-server --install-extension ms-python.python
