@@ -30,13 +30,11 @@ jobs:
           [[ $filename == $dir ]] && continue
           [[ " ${folders[*]} " =~ " $dir " ]] || continue
           
-          dockerfile=$fullpath
-          tag="jojoroto/${dockerfile/\//:}"
-          pwd
-          ls
-          ls -alh $fullpath
+          tag="jojoroto/${fullpath/\//:}"
+          cd $dir
           docker build -f $filename -t $tag .
           docker push $tag
+          cd ..
           
         done
   
