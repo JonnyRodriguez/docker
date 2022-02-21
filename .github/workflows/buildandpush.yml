@@ -32,6 +32,9 @@ jobs:
           
           dockerfile=$fullpath
           tag="jojoroto/${dockerfile/\//:}"
+          pwd
+          ls
+          ls -alh $fullpath
           docker build -f $filename -t $tag .
           docker push $tag
           
