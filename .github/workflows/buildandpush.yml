@@ -1,0 +1,38 @@
+name: build_micromamba
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out repository code
+      uses: actions/checkout@v2
+      
+    - id: files
+      uses: jitterbit/get-changed-files@v1
+    
+    - name: Login to DockerHub
+      uses: docker/login-action@v1 
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+    
+    - run: |
+    
+        fullpaths="${{ steps.files.outputs.all }}"
+        folders=("php")
+        files=""
+        for fullpath in $fullpaths; do
+          filename="${fullpath##*/}"
+          dir="${fullpath%%/*}"
+          [[ $filename == $dir ]] && continue
+          [[ " ${folders[*]} " =~ " $dir " ]] || continue
+          
+          dockerfile=$fullpath
+          tag="jojoroto/${dockerfie/\//:}"
+          docker build -f $filename -t $pkgname .
+          docker push $pkgname
+          
+        done
+  
