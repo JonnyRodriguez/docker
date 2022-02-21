@@ -31,7 +31,7 @@ jobs:
           [[ " ${folders[*]} " =~ " $dir " ]] || continue
           
           dockerfile=$fullpath
-          tag="jojoroto/${dockerfie/\//:}"
+          tag="jojoroto/${dockerfile/\//:}"
           docker build -f $filename -t $tag .
           docker push $tag
           
