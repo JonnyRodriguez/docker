@@ -22,7 +22,7 @@ jobs:
     - run: |
     
         fullpaths="${{ steps.files.outputs.all }}"
-        folders=("php")
+        folders=("php" "code-server")
         files=""
         for fullpath in $fullpaths; do
           filename="${fullpath##*/}"
