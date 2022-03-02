@@ -3,8 +3,8 @@ on:
   workflow_dispatch:
   push:
     paths:
-      'code-server/nvm',
-      'php/*'
+      - 'code-server/nvm'
+      - 'php/**'
 jobs:
   build:
     runs-on: ubuntu-latest
