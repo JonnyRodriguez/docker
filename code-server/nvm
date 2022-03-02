@@ -1,0 +1,10 @@
+FROM codercom/code-server:latest
+
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash \
+&& export NVM_DIR=~/.nvm \
+&& . ~/.nvm/nvm.sh \
+&& nvm install --lts \
+&& npm update -g \
+&& code-server --install-extension johnsoncodehk.volar --install-extension eamodio.gitlens \
+&& mkdir -p ~/.local/share/code-server/User/ \
+&& echo '{"workbench.colorTheme": "Default Dark+"}' > ~/.local/share/code-server/User/settings.json
