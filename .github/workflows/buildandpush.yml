@@ -1,8 +1,10 @@
-name: build_micromamba
+name: build
 on:
   workflow_dispatch:
   push:
-
+    paths:
+      'code-server/nvm',
+      'php/*'
 jobs:
   build:
     runs-on: ubuntu-latest
