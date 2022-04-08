@@ -19,7 +19,6 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     
     - run: |
-    
         fullpath="${{ github.event.inputs.pkg }}"
         filename="${fullpath##*/}"
         dir="${fullpath%%/*}"
@@ -31,5 +30,3 @@ jobs:
         docker build -f $filename -t $tag .
         docker push $tag
         cd ..
-          
-        done
