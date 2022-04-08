@@ -1,4 +1,4 @@
-name: build
+name: manual
 on:
   workflow_dispatch:
     inputs:
@@ -6,7 +6,7 @@ on:
         required: true
   
 jobs:
-  build:
+  manual:
     runs-on: ubuntu-latest
     steps:
     - name: Check out repository code
