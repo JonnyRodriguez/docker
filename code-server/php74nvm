@@ -1,0 +1,24 @@
+FROM codercom/code-server:latest
+
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash \
+&& export NVM_DIR=~/.nvm \
+&& . ~/.nvm/nvm.sh \
+&& nvm install --lts \
+&& npm update -g  \
+&& code-server --install-extension johnsoncodehk.volar --install-extension eamodio.gitlens \
+&& mkdir -p ~/.local/share/code-server/User/ \
+&& echo '{"workbench.colorTheme": "Default Dark+"}' > ~/.local/share/code-server/User/settings.json
+
+SHELL ["/bin/bash", "-c"]
+
+RUN sudo apt update && sudo apt upgrade -y \
+&& sudo apt -y install lsb-release apt-transport-https ca-certificates wget \
+&& sudo wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg \
+&& echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" \
+| sudo tee /etc/apt/sources.list.d/php.list 
+
+RUN sudo apt update && sudo apt install -y unzip jq  php php-pgsql php7.4-{mbstring,xml,curl,mongodb,intl} \
+&& curl -sS https://getcomposer.org/installer | php \
+&& sudo mv composer.phar /usr/local/bin/composer
+
+RUN code-server --install-extension bmewburn.vscode-intelephense-client
