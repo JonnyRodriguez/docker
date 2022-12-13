@@ -1,0 +1,25 @@
+FROM ubuntu:22.04
+
+RUN apt update && apt install -y xvfb x11vnc
+
+ADD https://download2.interactivebrokers.com/installers/jres/linux-amd64-1.8.0_202.tar.gz /tmp/jre.tar.gz
+
+ADD https://download2.interactivebrokers.com/installers/tws/stable/tws-stable-linux-x64.sh /tmp
+RUN cd /tmp && echo "\n\n" | bash tws-stable-linux-x64.sh
+
+ENV DISPLAY=:0
+
+RUN printf >/bin/entrypoint '%s\n' \
+    '#!/bin/bash' \
+    'Xvfb $DISPLAY -screen 0 1024x768x16 &' \
+    'x11vnc -display $DISPLAY -nopw -xkb -ncache 10 &' \
+    'exec "$@"' \
+    && chmod +x /bin/entrypoint
+
+EXPOSE 5900
+
+WORKDIR /root/Jts
+
+ENTRYPOINT ["/bin/entrypoint"]
+
+CMD ["./tws"]
