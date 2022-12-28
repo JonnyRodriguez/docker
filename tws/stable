@@ -19,7 +19,10 @@ RUN printf >/bin/entrypoint '%s\n' \
     'echo -e "$VNCPASSWD\n$VNCPASSWD\nn\n" | vncpasswd' \
     'vncserver $DISPLAY -localhost no' \
     'exec "$@"' \
-    && chmod +x /bin/entrypoint
+    && printf >/root/Jts/tws '%s\n' \
+    '#!/bin/bash' \
+    'while true; do 1019/tws; sleep 2; done' \
+    && chmod +x /bin/entrypoint /root/Jts/tws
 
 EXPOSE 5900
 
@@ -27,4 +30,4 @@ WORKDIR /root/Jts
 
 ENTRYPOINT ["/bin/entrypoint"]
 
-CMD ["1019/tws"]
+CMD ["tws"]
