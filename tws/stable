@@ -23,7 +23,7 @@ RUN printf >/bin/entrypoint '%s\n' \
     '#!/bin/bash' \
     'cd /root/Jts' \
     'while true; do 1019/tws; sleep 2; done' \
-    && chmod +x /bin/entrypoint /root/Jts/tws
+    && chmod +x /bin/entrypoint /bin/tws
 
 EXPOSE 5900
 
