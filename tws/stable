@@ -19,8 +19,9 @@ RUN printf >/bin/entrypoint '%s\n' \
     'echo -e "$VNCPASSWD\n$VNCPASSWD\nn\n" | vncpasswd' \
     'vncserver $DISPLAY -localhost no' \
     'exec "$@"' \
-    && printf >/root/Jts/tws '%s\n' \
+    && printf >/bin/tws '%s\n' \
     '#!/bin/bash' \
+    'cd /root/Jts' \
     'while true; do 1019/tws; sleep 2; done' \
     && chmod +x /bin/entrypoint /root/Jts/tws
 
