@@ -5,6 +5,6 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh | b
 && . ~/.nvm/nvm.sh \
 && nvm install --lts \
 && npm update -g  \
-&& code-server --install-extension --install-extension eamodio.gitlens \
+&& code-server --install-extension eamodio.gitlens \
 && mkdir -p ~/.local/share/code-server/User/ \
 && echo '{"workbench.colorTheme": "Default Dark+"}' > ~/.local/share/code-server/User/settings.json
