@@ -6,6 +6,6 @@ RUN curl -s https://download.docker.com/linux/static/stable/x86_64/docker-20.10.
 | tar -xz -C /tmp docker/docker && chmod +x /tmp/docker/docker \
 && sudo mv /tmp/docker/docker /usr/local/bin && rm -r /tmp/docker
 RUN sudo apt install -y unzip jq wget python3-pip
-RUN code-server \
+RUN code-server  \
 --install-extension eamodio.gitlens \
 --install-extension ms-python.python
