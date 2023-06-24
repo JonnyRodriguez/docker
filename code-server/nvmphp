@@ -17,7 +17,7 @@ RUN sudo apt update && sudo apt upgrade -y \
 && echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" \
 | sudo tee /etc/apt/sources.list.d/php.list 
 
-RUN sudo apt update && sudo apt install -y unzip jq  php php-pgsql php8.1-{mbstring,xml,curl,mongodb} \
+RUN sudo apt update && sudo apt install -y unzip jq  php php-pgsql php8.2-{mbstring,xml,curl,mongodb,redis} \
 && curl -sS https://getcomposer.org/installer | php \
 && sudo mv composer.phar /usr/local/bin/composer
 
