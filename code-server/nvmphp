@@ -17,8 +17,12 @@ RUN sudo apt update && sudo apt upgrade -y \
 && echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" \
 | sudo tee /etc/apt/sources.list.d/php.list 
 
-RUN sudo apt update && sudo apt install -y unzip jq  php php-pgsql php8.2-{mbstring,xml,curl,mongodb,redis} \
+RUN sudo apt update && sudo apt install -y unzip jq dnsutils iproute2 iptutils-ping php php-pgsql php8.2-{mbstring,xml,curl,mongodb,redis} \
 && curl -sS https://getcomposer.org/installer | php \
 && sudo mv composer.phar /usr/local/bin/composer
+
+RUN wget https://download.docker.com/linux/ubuntu/dists/focal/pool/stable/amd64/docker-ce-cli_24.0.4-1~ubuntu.20.04~focal_amd64.deb \
+&& dpkg -i docker-ce-cli_24.0.4-1~ubuntu.20.04~focal_amd64.deb \
+&& rm docker-ce-cli_24.0.4-1~ubuntu.20.04~focal_amd64.deb
 
 RUN code-server --install-extension bmewburn.vscode-intelephense-client
