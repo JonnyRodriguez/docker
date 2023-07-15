@@ -17,10 +17,13 @@ RUN sudo apt update && sudo apt upgrade -y \
 && echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" \
 | sudo tee /etc/apt/sources.list.d/php.list 
 
-RUN sudo apt update && sudo apt install -y unzip jq dnsutils iproute2 iputils-ping redis-tools hcloud-cli \
+RUN sudo apt update && sudo apt install -y unzip jq dnsutils iproute2 iputils-ping redis-tools \
 php8.2 php8.2-{common,mbstring,xml,intl,curl,pgsql,mongodb,redis} \
 && curl -sS https://getcomposer.org/installer | php \
 && sudo mv composer.phar /usr/local/bin/composer
+
+RUN VER=$(curl -s https://api.github.com/repos/hetznercloud/cli/releases/latest | grep tag_name | cut -d '"' -f 4) \
+&& wget https://github.com/hetznercloud/cli/releases/download/$VER/hcloud-linux-amd64.tar.gz -qO- | tar -C /usr/bin -zx hcloud
 
 RUN wget https://download.docker.com/linux/ubuntu/dists/focal/pool/stable/amd64/docker-ce-cli_24.0.4-1~ubuntu.20.04~focal_amd64.deb \
 && sudo dpkg -i docker-ce-cli_24.0.4-1~ubuntu.20.04~focal_amd64.deb \
