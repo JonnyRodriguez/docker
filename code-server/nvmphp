@@ -1,15 +1,16 @@
 FROM codercom/code-server:latest
 
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash \
+ENV DEBIAN_FRONTEND=noninteractive
+SHELL ["/bin/bash", "-c"]
+
+RUN VER=$(curl -s https://api.github.com/repos/nvm-sh/nvm/releases/latest | grep tag_name | cut -d '"' -f 4) \
+&& curl -so- https://raw.githubusercontent.com/nvm-sh/nvm/$VER/install.sh | bash \
 && export NVM_DIR=~/.nvm \
 && . ~/.nvm/nvm.sh \
 && nvm install --lts \
 && npm update -g  \
-&& code-server --install-extension johnsoncodehk.volar --install-extension eamodio.gitlens \
 && mkdir -p ~/.local/share/code-server/User/ \
-&& echo '{"workbench.colorTheme": "Default Dark+"}' > ~/.local/share/code-server/User/settings.json
-
-SHELL ["/bin/bash", "-c"]
+&& echo '{"workbench.colorTheme": "Dark+"}' > ~/.local/share/code-server/User/settings.json
 
 RUN sudo apt update && sudo apt upgrade -y \
 && sudo apt -y install lsb-release apt-transport-https ca-certificates wget \
