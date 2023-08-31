@@ -3,7 +3,7 @@ FROM ubuntu:22.04
 ARG TZ=Etc/UTC
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt update && apt install -y x11vnc tigervnc-standalone-server tigervnc-common openjfx
+RUN apt update && apt install -y wget x11vnc tigervnc-standalone-server tigervnc-common openjfx
 
 #ADD https://download2.interactivebrokers.com/installers/jres/linux-amd64-1.8.0_202.tar.gz /tmp/jre.tar.gz
 
