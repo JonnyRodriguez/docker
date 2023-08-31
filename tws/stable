@@ -8,7 +8,7 @@ RUN apt update && apt install -y x11vnc tigervnc-standalone-server tigervnc-comm
 #ADD https://download2.interactivebrokers.com/installers/jres/linux-amd64-1.8.0_202.tar.gz /tmp/jre.tar.gz
 
 #ADD https://download2.interactivebrokers.com/installers/tws/stable/tws-stable-linux-x64.sh /tmp
-ADD https://download2.interactivebrokers.com/installers/tws/stable-standalone/tws-stable-standalone-linux-x64.sh /tmp/tws-install.sh
+ADD https://download2.interactivebrokers.com/installers/tws/latest/tws-latest-linux-x64.sh /tmp/tws-install.sh
 RUN cd /tmp && echo "\n\n" | bash tws-install.sh
 
 ENV DISPLAY=:0
@@ -22,7 +22,7 @@ RUN printf >/bin/entrypoint '%s\n' \
     && printf >/bin/tws '%s\n' \
     '#!/bin/bash' \
     'cd /root/Jts' \
-    'while true; do 1019/tws; sleep 2; done' \
+    'while true; do ./tws; sleep 2; done' \
     && chmod +x /bin/entrypoint /bin/tws
 
 EXPOSE 5900
