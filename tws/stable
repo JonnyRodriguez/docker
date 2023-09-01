@@ -8,7 +8,7 @@ RUN apt update && apt install -y wget x11vnc tigervnc-standalone-server tigervnc
 #ADD https://download2.interactivebrokers.com/installers/jres/linux-amd64-1.8.0_202.tar.gz /tmp/jre.tar.gz
 
 #ADD https://download2.interactivebrokers.com/installers/tws/stable/tws-stable-linux-x64.sh /tmp
-ADD https://download2.interactivebrokers.com/installers/tws/latest/tws-latest-linux-x64.sh /tmp/tws-install.sh
+ADD https://download2.interactivebrokers.com/installers/tws/stable/tws-stable-linux-x64.sh /tmp/tws-install.sh
 RUN cd /tmp && echo -e "\n\n" | bash tws-install.sh
 
 ENV DISPLAY=:0
