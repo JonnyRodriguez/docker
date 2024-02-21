@@ -3,13 +3,11 @@ FROM codercom/code-server:latest
 SHELL ["/bin/bash", "-c"]
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN VER=$(curl -s https://api.github.com/repos/nvm-sh/nvm/releases/latest | grep tag_name | cut -d '"' -f 4) \
-&& curl -so- https://raw.githubusercontent.com/nvm-sh/nvm/$VER/install.sh | bash \
-&& export NVM_DIR=~/.nvm \
-&& . ~/.nvm/nvm.sh \
-&& nvm install --lts \
-&& npm update -g  \
-&& mkdir -p ~/.local/share/code-server/User/ \
+RUN curl -fsSL https://fnm.vercel.app/install | bash
+
+RUN curl -fsSL https://bun.sh/install | bash 
+
+RUN mkdir -p ~/.local/share/code-server/User/ \
 && echo '{"workbench.colorTheme": "Dark+"}' > ~/.local/share/code-server/User/settings.json
 
 RUN sudo apt update && sudo apt upgrade -y \
