@@ -3,22 +3,20 @@ FROM codercom/code-server:latest
 SHELL ["/bin/bash", "-c"]
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt update && apt upgrade && apt install -y unzip curl 
+RUN sudo apt update && sudo apt upgrade && sudo apt install -y unzip curl 
 
 RUN curl -fsSL https://fnm.vercel.app/install | bash
-
 RUN curl -fsSL https://bun.sh/install | bash 
 
 RUN mkdir -p ~/.local/share/code-server/User/ \
 && echo '{"workbench.colorTheme": "Dark+"}' > ~/.local/share/code-server/User/settings.json
 
-RUN sudo apt update && sudo apt upgrade -y \
-&& sudo apt -y install lsb-release apt-transport-https ca-certificates wget \
+RUN sudo apt install -y lsb-release apt-transport-https ca-certificates wget \
 && sudo wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg \
 && echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" \
 | sudo tee /etc/apt/sources.list.d/php.list 
 
-RUN sudo apt update && sudo apt install -y unzip jq dnsutils iproute2 iputils-ping redis-tools \
+RUN sudo apt install -y jq dnsutils iproute2 iputils-ping redis-tools \
 php8.2 php8.2-{common,mbstring,xml,intl,curl,pgsql,mysql,mongodb,redis} \
 && curl -sS https://getcomposer.org/installer | php \
 && sudo mv composer.phar /usr/local/bin/composer
