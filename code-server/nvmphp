@@ -19,7 +19,7 @@ RUN sudo apt update && sudo apt upgrade -y \
 | sudo tee /etc/apt/sources.list.d/php.list 
 
 RUN sudo apt update && sudo apt install -y unzip jq dnsutils iproute2 iputils-ping redis-tools \
-php8.2 php8.2-{common,mbstring,xml,intl,curl,pgsql,mongodb,redis} \
+php8.2 php8.2-{common,mbstring,xml,intl,curl,pgsql,mysql,mongodb,redis} \
 && curl -sS https://getcomposer.org/installer | php \
 && sudo mv composer.phar /usr/local/bin/composer
 
