@@ -3,7 +3,7 @@ FROM codercom/code-server:latest
 SHELL ["/bin/bash", "-c"]
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN sudo apt update && sudo apt upgrade && sudo apt install -y unzip curl 
+RUN sudo apt update && sudo apt upgrade -y && sudo apt install -y unzip curl 
 
 RUN curl -fsSL https://fnm.vercel.app/install | bash
 RUN curl -fsSL https://bun.sh/install | bash 
