@@ -22,8 +22,8 @@ RUN apt update && apt upgrade -y \
 && apt install -y php$PHP_VER php$PHP_VER-{mbstring,xml,curl,pgsql,mysql,mongodb,redis,mcrypt,opcache,intl,bcmath,yaml,gd,fpm} \
 && apt install -y apache2 libapache2-mod-php7.4 \
 && wget -qO- https://getcomposer.org/installer | php \
-&& mv composer.phar /usr/local/bin/composer
-&& rm -rf /var/lib/apt/lists/* \
+&& mv composer.phar /usr/local/bin/composer \
+&& rm -rf /var/lib/apt/lists/*
 
 RUN printf >/entry.sh '#!/usr/bin/env bash\n\
 [ -f /init.sh ] && bash /init.sh\n\
