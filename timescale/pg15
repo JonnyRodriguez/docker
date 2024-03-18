@@ -1,0 +1,9 @@
+FROM postgres:15
+
+RUN apt update && apt upgrade -y \
+&& apt install -y gnupg postgresql-common apt-transport-https lsb-release wget \
+&& echo | /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh \
+&& echo "deb https://packagecloud.io/timescale/timescaledb/debian/ $(lsb_release -c -s) main" > /etc/apt/sources.list.d/timescaledb.list \
+&& wget --quiet -O - https://packagecloud.io/timescale/timescaledb/gpgkey | gpg --dearmor -o /etc/apt/trusted.gpg.d/timescaledb.gpg \
+&& apt update \
+&& apt install -y timescaledb-2-postgresql-15
