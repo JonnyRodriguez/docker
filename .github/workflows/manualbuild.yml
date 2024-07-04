@@ -26,9 +26,7 @@ jobs:
         [[ " ${folders[*]} " =~ " $dir " ]] || continue
           
         tag="jojoroto/${fullpath/\//:}"
-        sudo service docker stop
-        sudo dockerd --containerd=/run/containerd/containerd.sock &
         cd $dir
-        docker buildx build --platform linux/amd64,linux/arm64 -f $filename -t $tag .
+        docker buildx build -f $filename -t $tag .
         docker push $tag
         cd ..
