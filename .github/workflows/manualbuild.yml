@@ -27,7 +27,7 @@ jobs:
           
         tag="jojoroto/${fullpath/\//:}"
         sudo service docker stop
-        sudo dockerd --containerd
+        sudo dockerd --containerd=true
         cd $dir
         docker buildx build --platform linux/amd64,linux/arm64 -f $filename -t $tag .
         docker push $tag
