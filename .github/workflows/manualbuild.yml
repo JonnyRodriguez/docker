@@ -27,6 +27,6 @@ jobs:
           
         tag="jojoroto/${fullpath/\//:}"
         cd $dir
-        docker build --platform linux/amd64,linux/arm64 -f $filename -t $tag .
+        docker buildx --platform linux/amd64,linux/arm64 -f $filename -t $tag .
         docker push $tag
         cd ..
