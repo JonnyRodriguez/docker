@@ -17,7 +17,7 @@ ENV VNCPASSWD=prueba
 RUN printf >/bin/entrypoint '%s\n' \
     '#!/bin/bash' \
     'echo -e "$VNCPASSWD\n$VNCPASSWD\nn\n" | vncpasswd' \
-    'vncserver $DISPLAY -localhost no' \
+    'vncserver $DISPLAY -geometry 1920x1080 -localhost no' \
     'exec "$@"' \
     && printf >/bin/tws '%s\n' \
     '#!/bin/bash' \
