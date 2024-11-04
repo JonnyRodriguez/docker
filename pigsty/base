@@ -20,6 +20,4 @@ RUN curl -fsSL https://repo.pigsty.io/key | gpg --dearmor -o /etc/apt/keyrings/p
     echo "deb [signed-by=/etc/apt/keyrings/pigsty.gpg] https://repo.pigsty.io/apt/infra generic main" > /etc/apt/sources.list.d/pigsty-io.list && \
     echo "deb [signed-by=/etc/apt/keyrings/pigsty.gpg] https://repo.pigsty.io/apt/pgsql/${distro_codename} ${distro_codename} main" >> /etc/apt/sources.list.d/pigsty-io.list
 
-WORKDIR /opt/pigsty
-
 CMD ["/bin/bash"]
