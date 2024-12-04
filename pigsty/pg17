@@ -37,5 +37,6 @@ ENV LANG=en_US.utf8
 RUN apt update && apt install -y postgresql-17
 
 USER postgres
+STOPSIGNAL SIGINT
 
 CMD ["/bin/bash"]
