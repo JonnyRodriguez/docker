@@ -8,6 +8,7 @@ RUN apt-get update && apt-get install -y \
     ca-certificates \
     gnupg \
     lsb-release \
+    locales \
     && rm -rf /var/lib/apt/lists/*
 
 # Add PostgreSQL repository
@@ -23,7 +24,10 @@ RUN curl -fsSL https://repo.pigsty.io/key | gpg --dearmor -o /etc/apt/keyrings/p
 RUN /bin/sh -c set -eux; \
 groupadd -r postgres --gid=999; \
 useradd -r -g postgres --uid=999 --home-dir=/var/lib/postgresql --shell=/bin/bash postgres; \
-install --verbose --directory --owner postgres --group postgres --mode 1777 /var/lib/postgresql
+install --verbose --directory --owner postgres --group postgres --mode 1777 /var/lib/postgresql; \
+echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen; \
+locale-gen; \
+locale -a | grep 'en_US.utf8'
 
 ENV PATH=$PATH:/usr/lib/postgresql/17/bin
 ENV PGDATA=/var/lib/postgresql/data
