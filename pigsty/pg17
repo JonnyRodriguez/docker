@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM debian:12
 
 ENV PG_MAJOR=17
 ENV LANG=en_US.UTF-8
