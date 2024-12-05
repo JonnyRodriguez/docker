@@ -1,4 +1,8 @@
-FROM ubuntu:24.04
+FROM ubuntu:22.04
+
+ENV PG_MAJOR=17
+ENV LC_ALL=en_US.UTF-8
+ENV LANG=en_US.UTF-8
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -25,16 +29,12 @@ RUN /bin/sh -c set -eux; \
 groupadd -r postgres --gid=999; \
 useradd -r -g postgres --uid=999 --home-dir=/var/lib/postgresql --shell=/bin/bash postgres; \
 install --verbose --directory --owner postgres --group postgres --mode 1777 /var/lib/postgresql; \
-echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen; \
-locale-gen; \
-locale -a | grep 'en_US.utf8'
+locale-gen "$LANG" 
 
-ENV PATH=$PATH:/usr/lib/postgresql/17/bin
+ENV PATH=/usr/lib/postgresql/$PG_MAJOR/bin:$PATH
 ENV PGDATA=/var/lib/postgresql/data
-ENV PG_MAJOR=17
-ENV LANG=en_US.utf8
 
-RUN apt update && apt install -y postgresql-17
+RUN apt update && apt install -y postgresql-$PG_MAJOR
 
 USER postgres
 STOPSIGNAL SIGINT
