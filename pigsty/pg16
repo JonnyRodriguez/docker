@@ -1,14 +1,23 @@
 FROM ubuntu:22.04
 
+ENV PG_MAJOR=16
+ENV LANG=en_US.UTF-8
+
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Install essential packages in a single RUN layer
-RUN apt-get update && apt-get install -y \
+RUN apt update && apt upgrade -y && apt install -y \
     curl \
     ca-certificates \
     gnupg \
     lsb-release \
-    && rm -rf /var/lib/apt/lists/*
+    locales
+
+RUN /bin/sh -c set -eux; \
+groupadd -r postgres --gid=999; \
+useradd -r -g postgres --uid=999 --home-dir=/var/lib/postgresql --shell=/bin/bash postgres; \
+install --verbose --directory --owner postgres --group postgres --mode 1777 /var/lib/postgresql; \
+locale-gen "$LANG" 
 
 # Add PostgreSQL repository
 RUN curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor -o /etc/apt/keyrings/postgresql.gpg && \
@@ -20,18 +29,12 @@ RUN curl -fsSL https://repo.pigsty.io/key | gpg --dearmor -o /etc/apt/keyrings/p
     echo "deb [signed-by=/etc/apt/keyrings/pigsty.gpg] https://repo.pigsty.io/apt/infra generic main" > /etc/apt/sources.list.d/pigsty-io.list && \
     echo "deb [signed-by=/etc/apt/keyrings/pigsty.gpg] https://repo.pigsty.io/apt/pgsql/${distro_codename} ${distro_codename} main" >> /etc/apt/sources.list.d/pigsty-io.list
 
-RUN /bin/sh -c set -eux; \
-groupadd -r postgres --gid=999; \
-useradd -r -g postgres --uid=999 --home-dir=/var/lib/postgresql --shell=/bin/bash postgres; \
-install --verbose --directory --owner postgres --group postgres --mode 1777 /var/lib/postgresql
-
-ENV PG_MAJOR=16
-ENV PATH=$PATH:/usr/lib/postgresql/$PG_MAJOR/bin
-ENV PGDATA=/var/lib/postgresql/data
-ENV LANG=en_US.utf8
-
 RUN apt update && apt install -y postgresql-$PG_MAJOR
 
+ENV PATH=$PATH:/usr/lib/postgresql/$PG_MAJOR/bin
+ENV PGDATA=/var/lib/postgresql/data
+
 USER postgres
+STOPSIGNAL SIGINT
 
 CMD ["/bin/bash"]
