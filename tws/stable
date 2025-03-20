@@ -4,26 +4,42 @@ ARG TZ=Etc/UTC
 ENV DEBIAN_FRONTEND=noninteractive
 SHELL ["/bin/bash", "-c"]
 
-RUN apt-get update && apt-get install -y wget x11vnc tigervnc-standalone-server tigervnc-common openjfx
+# Install Java 8 and other dependencies
+RUN apt-get update && \
+    apt-get install -y wget x11vnc tigervnc-standalone-server tigervnc-common openjfx openjdk-8-jre
 
-#ADD https://download2.interactivebrokers.com/installers/jres/linux-amd64-1.8.0_202.tar.gz /tmp/jre.tar.gz
+# Set INSTALL4J_JAVA_HOME environment variable
+ENV INSTALL4J_JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+ENV PATH="${INSTALL4J_JAVA_HOME}/bin:${PATH}"
+ENV JAVA_HOME=${INSTALL4J_JAVA_HOME}
 
-#ADD https://download2.interactivebrokers.com/installers/tws/stable/tws-stable-linux-x64.sh /tmp
+# Add TWS installer
+WORKDIR /tmp
 ADD https://download2.interactivebrokers.com/installers/tws/latest-standalone/tws-latest-standalone-linux-x64.sh /tmp/tws-install.sh
-RUN cd /tmp; echo -e "/root/Jts\n\n" | bash tws-install.sh
+RUN echo -e "/root/Jts\n\n" | bash tws-install.sh
 
 ENV DISPLAY=:0
 ENV VNCPASSWD=prueba
 
+# Modified startup scripts with additional checks
 RUN printf >/bin/entrypoint '%s\n' \
     '#!/bin/bash' \
+    'echo "Java version check:"' \
+    'java -version' \
+    'echo "INSTALL4J_JAVA_HOME=$INSTALL4J_JAVA_HOME"' \
+    'echo "Setting up VNC..."' \
     'echo -e "$VNCPASSWD\n$VNCPASSWD\nn\n" | vncpasswd' \
     'vncserver $DISPLAY -geometry 1920x1080 -localhost no' \
     'exec "$@"' \
     && printf >/bin/tws '%s\n' \
     '#!/bin/bash' \
     'cd /root/Jts' \
-    'while true; do ./tws; sleep 2; done' \
+    'echo "Starting TWS..."' \
+    'while true; do' \
+    '  ./tws' \
+    '  echo "TWS exited with code $?, waiting 2 seconds before restart..."' \
+    '  sleep 2' \
+    'done' \
     && chmod +x /bin/entrypoint /bin/tws
 
 EXPOSE 5900
