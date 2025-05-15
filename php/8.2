@@ -20,7 +20,7 @@ RUN apt update && apt upgrade -y \
 && apt install -y git jq unzip php$PHP_VER php$PHP_VER-{mbstring,xml,curl,pgsql,mongodb,redis,mysql,sqlite3,mcrypt,opcache,intl,bcmath,yaml,gd,zip} \
 && rm -rf /var/lib/apt/lists/* \
 && wget -qO- https://getcomposer.org/installer | php \
-&& mv composer.phar /usr/local/bin/composer \\
+&& mv composer.phar /usr/local/bin/composer \
 && a2enmod rewrite
 
 WORKDIR /var/www/html
