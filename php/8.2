@@ -17,17 +17,12 @@ RUN apt update && apt upgrade -y \
 && wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg \
 && echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/php.list \
 && apt update \
-&& apt install -y git jq unzip php$PHP_VER php$PHP_VER-{mbstring,xml,curl,pgsql,mongodb,redis,mysql,sqlite,mcrypt,opcache,intl,bcmath,yaml,gd,zip} \
+&& apt install -y git jq unzip php$PHP_VER php$PHP_VER-{mbstring,xml,curl,pgsql,mongodb,redis,mysql,sqlite3,mcrypt,opcache,intl,bcmath,yaml,gd,zip} \
 && rm -rf /var/lib/apt/lists/* \
 && wget -qO- https://getcomposer.org/installer | php \
-&& mv composer.phar /usr/local/bin/composer
-
-RUN printf >/entry.sh '#!/usr/bin/env bash\n\
-[ -f /init.sh ] && bash /init.sh\n\
-exec "$@"' \
-&& chmod +x /entry.sh && cat /entry.sh \
+&& mv composer.phar /usr/local/bin/composer \\
 && a2enmod rewrite
 
 WORKDIR /var/www/html
 
-CMD /entry.sh apache2 -DFOREGROUND
+CMD apache2 -DFOREGROUND
