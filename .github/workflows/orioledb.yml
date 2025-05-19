@@ -1,7 +1,9 @@
 name: orioledb
-
+on:
+  workflow_dispatch:
+  
 jobs:
-  manual:
+  orioledb:
     runs-on: ubuntu-latest
     steps:
     - name: Check out repository code
