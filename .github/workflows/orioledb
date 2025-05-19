@@ -1,0 +1,32 @@
+name: manual
+on:
+  workflow_dispatch:
+    inputs:
+      pkg:
+        required: true
+
+jobs:
+  manual:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out repository code
+      uses: actions/checkout@v2
+      
+    - name: Clone orioledb/orioledb repo
+      run: |
+        git clone https://github.com/orioledb/orioledb
+        ls -l orioledb  # Optional: show contents for debugging
+
+    - name: Login to DockerHub
+      uses: docker/login-action@v1 
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    - name: Build and push Docker image
+      run: |
+        # Example: build using Dockerfile from the cloned repo
+        cd orioledb
+        docker buildx build -f docker/Dockerfile.ubuntu -t jojoroto/orioledb:pg17 .
+        docker push jojoroto/orioledb:pg17
+        cd ..
