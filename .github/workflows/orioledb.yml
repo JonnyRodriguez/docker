@@ -1,9 +1,4 @@
 name: orioledb
-on:
-  workflow_dispatch:
-    inputs:
-      pkg:
-        required: true
 
 jobs:
   manual:
